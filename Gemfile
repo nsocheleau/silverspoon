@@ -57,6 +57,8 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem 'database_cleaner-active_record'
+
+  gem 'mini_racer'
 end
 
 gem 'pg'
