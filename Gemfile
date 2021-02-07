@@ -42,9 +42,9 @@ group :development, :test do
   # Preview email in the default browser instead of sending it
   gem 'letter_opener'
 
-  # Use mysql as the database for Active Record
-  gem 'mysql2', '>= 0.3.18', '< 0.5'
 end
+
+gem 'pg'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -55,13 +55,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   #gem for support the rails panel in google crome extension
   gem 'meta_request'
-
-  #for heroku
-  gem 'heroku'
 end
 
 group :heroku do
-  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -73,6 +69,3 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
 # for exception notifier
 gem 'exception_notification'
-
-# for deploying the application on heroku.
-gem "figaro"

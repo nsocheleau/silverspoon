@@ -10,12 +10,9 @@
 #   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
 #
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   pool: 5
-  username: root
-  password: password
-  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
@@ -52,8 +49,3 @@ production:
   database: skeleton_production
   username: skeleton
   password: <%= ENV['SKELETON_DATABASE_PASSWORD'] %>
-
-heroku:
-  adapter: postgresql
-  encoding: utf8
-  pool: 15
