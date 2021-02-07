@@ -45,6 +45,18 @@ group :development, :test do
   # Preview email in the default browser instead of sending it
   gem 'letter_opener'
 
+  # rspec
+  gem 'rspec-rails', '~> 4.0.2'
+  # fabrication for fixtures
+  gem 'fabrication'
+
+  gem 'faker'
+
+  gem 'capybara'
+
+  gem 'selenium-webdriver'
+
+  gem 'database_cleaner-active_record'
 end
 
 gem 'pg'
