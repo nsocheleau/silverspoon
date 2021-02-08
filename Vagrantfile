@@ -1,7 +1,9 @@
 Vagrant.configure('2') do |config|
   config.vm.box = "bento/ubuntu-20.04"
+  config.vm.define "silverspoon"
   config.vm.provider :virtualbox do |vb|
     vb.customize ['modifyvm', :id,'--memory', '2048']
+    vb.name = "silverspoon"
   end
   config.vm.provision "shell" do |s|
     s.inline = <<-SCRIPT
@@ -27,35 +29,34 @@ Vagrant.configure('2') do |config|
       apt-get -y install imagemagick google-chrome-stable xvfb unzip sudo curl git
       apt-get clean
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-  
-      if [ -e /usr/local/rvm/bin/rvm ]; then
-        gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-        \\curl -sSL https://get.rvm.io | bash -s stable
-        /usr/local/rvm/bin/rvm install 2.4
-        /usr/local/rvm/bin/rvm 2.4 do /usr/local/rvm/bin/rvm gemset create silverspoon
-        usermod -a -G rvm vagrant
-      fi
-      if [ -e /usr/local/bin/chromedriver ]; then
-        # Download and copy the ChromeDriver to /usr/local/bin
-        cd /tmp
 
-        echo "Download latest chrome driver..."
-        CHROMEDRIVER_VERSION=$(curl "http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-        wget "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-        unzip chromedriver_linux64.zip
-        sudo rm chromedriver_linux64.zip
-        chown vagrant:vagrant chromedriver
-        mv chromedriver /usr/local/bin
-      fi
+      echo 'installing RVM'
+      gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+      \\curl -sSL https://get.rvm.io | bash -s stable
+      /usr/local/rvm/bin/rvm install 2.4
+      /usr/local/rvm/bin/rvm 2.4 do /usr/local/rvm/bin/rvm gemset create silverspoon
+      usermod -a -G rvm vagrant
+
+      # Download and copy the ChromeDriver to /usr/local/bin
+      cd /tmp
+
+      echo "Download latest chrome driver..."
+      CHROMEDRIVER_VERSION=$(curl "http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+      wget "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+      unzip chromedriver_linux64.zip
+      sudo rm chromedriver_linux64.zip
+      chown vagrant:vagrant chromedriver
+      mv chromedriver /usr/local/bin
+
       echo "Done downloading and installing basic packages"
 
       apt-get update
       apt-get install -y libpq-dev libffi-dev
-  
+
       apt-get install -y postgresql
-  
+
       su postgres -c "psql -c \\"CREATE USER vagrant WITH SUPERUSER\\""
-  
+
       # So that running `vagrant provision` doesn't redownload everything
       touch /.installed
     fi
