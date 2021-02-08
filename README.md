@@ -29,11 +29,11 @@ This Rails 5 (5.0.0.1) app integrated:
 
 ## Development environment:
 
-* Ruby version (2.3.0).
+* Ruby version (2.4).
 
 * Rails 5 (5.0.0.1).
 
-* Mysql (you can change it :) )
+* Postgresql
 
 ## Setup
 
@@ -43,13 +43,24 @@ This Rails 5 (5.0.0.1) app integrated:
 $ git archive master | tar -x -C /somewhere/else
 ```
 2. cd into that directory.
-3. I am using mysql database for development. if you are using any other update your Gemfile for corresponding database adapter.
-4. Update database configurations in database.yml.
+3. Setup the virtual machine using Vagrant
+```sh
+vagrant up
+vagrant ssh
+```
 
 ```sh
+cd /vagrant
 bundle install
-rails db:create db:migrate db:seed
-rails s
+bundle exec rails db:create db:migrate db:seed
+bundle exec rails s
+```
+
+Then browse to http://localhost:3000/ on the host
+
+4. To run the tests
+```sh
+HEADLESS=true DISPLAY=:10 bundle exec rspec
 ```
 
 Admin Panel [admin panel]
