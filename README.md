@@ -37,18 +37,23 @@ This Rails 5 (5.0.0.1) app integrated:
 
 ## Setup
 
-1. Do git checkout followed by git archive by
+1. git clone the repo
 
 ```sh
-$ git archive master | tar -x -C /somewhere/else
+$ git clone hhttps://github.com/nsocheleau/silverspoon.git
 ```
 2. cd into that directory.
+
 3. Setup the virtual machine using Vagrant
+
+You' ll need to install VirtualBox and Vagrant first.
+
 ```sh
 vagrant up
 vagrant ssh
 ```
 
+Once connected to the virtual machine
 ```sh
 cd /vagrant
 bundle install
@@ -57,6 +62,15 @@ bundle exec rails s
 ```
 
 Then browse to http://localhost:3000/ on the host
+
+If you don't want to use a virtual machine, you'll need postgresql, a ruby version manager (RVM or rbenv) with ruby 2.4 on your machine.
+
+To configure and run the rails server:
+```sh
+bundle install
+bundle exec rails db:create db:migrate db:seed
+bundle exec rails s
+```
 
 4. To run the tests
 ```sh
