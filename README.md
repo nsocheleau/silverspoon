@@ -56,6 +56,12 @@ vagrant ssh
 Once connected to the virtual machine
 ```sh
 cd /vagrant
+```
+If you don't want to use a virtual machine, you'll need postgresql, a ruby version manager (RVM or rbenv) with ruby 2.4 on your machine.
+
+4. Setup the rails project dependencies and run the rails server
+
+```sh
 bundle install
 bundle exec rails db:create db:migrate db:seed
 bundle exec rails s
@@ -63,16 +69,7 @@ bundle exec rails s
 
 Then browse to http://localhost:3000/ on the host
 
-If you don't want to use a virtual machine, you'll need postgresql, a ruby version manager (RVM or rbenv) with ruby 2.4 on your machine.
-
-To configure and run the rails server:
-```sh
-bundle install
-bundle exec rails db:create db:migrate db:seed
-bundle exec rails s
-```
-
-4. To run the tests
+5. To run the tests
 ```sh
 HEADLESS=true DISPLAY=:10 bundle exec rspec
 ```
