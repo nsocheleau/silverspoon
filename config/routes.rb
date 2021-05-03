@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   rescue Exception => e
     puts "ActiveAdmin: #{e.class}: #{e}"
   end
+
+  post 'api/events' => 'api#events'
+
   root to: "home#index"
 
 end
